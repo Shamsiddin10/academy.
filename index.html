@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zamon Academy | Pro LMS</title>
+    <title>Zamon Academy | Full Curriculum</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,70 +14,61 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
 
-        /* --- DESIGNER LOGIN --- */
-        #authOverlay {
-            position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, #1e1b4b, #0b0f1a);
-            z-index: 3000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px);
-        }
-        .auth-card {
-            background: rgba(255, 255, 255, 0.02); padding: 40px 30px; border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 400px; text-align: center;
-        }
-        .auth-card h2 { font-size: 2rem; font-weight: 800; margin-bottom: 25px; }
+        /* --- AUTH --- */
+        #authOverlay { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, #1e1b4b, #0b0f1a); z-index: 3000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px); }
+        .auth-card { background: rgba(255, 255, 255, 0.02); padding: 40px 30px; border-radius: 35px; border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 400px; text-align: center; }
         .input-box { width: 100%; padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; margin-bottom: 12px; outline: none; }
         .auth-btn { width: 100%; padding: 16px; border-radius: 14px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-weight: 800; cursor: pointer; }
 
-        /* --- SIDEBAR (Desktop) --- */
+        /* --- NAVIGATION --- */
         .sidebar { width: 280px; background: #0d111c; height: 100vh; position: fixed; border-right: 1px solid rgba(255,255,255,0.05); padding: 30px 20px; z-index: 1000; }
         .main-content { margin-left: 280px; width: calc(100% - 280px); transition: 0.3s; }
         .menu-item { padding: 14px 18px; border-radius: 15px; cursor: pointer; color: #94a3b8; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
         .menu-item.active { background: rgba(99, 102, 241, 0.1); color: white; }
 
-        /* --- MOBILE NAVIGATION (Bottom Bar) --- */
-        .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0d111c; border-top: 1px solid rgba(255,255,255,0.1); padding: 10px 5px; justify-content: space-around; align-items: center; z-index: 2000; backdrop-filter: blur(10px); }
-        .nav-tab { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94a3b8; font-size: 10px; cursor: pointer; padding: 10px; border-radius: 12px; min-width: 70px; }
-        .nav-tab.active { color: var(--primary); background: rgba(99, 102, 241, 0.05); }
-        .nav-tab i { font-size: 20px; margin-bottom: 2px; }
+        .mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0d111c; border-top: 1px solid rgba(255,255,255,0.1); padding: 10px 5px; justify-content: space-around; z-index: 2000; }
+        .nav-tab { display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 10px; cursor: pointer; }
+        .nav-tab.active { color: var(--primary); }
 
-        /* --- RESPONSIVE ADJUSTMENTS --- */
-        @media (max-width: 992px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; width: 100%; padding-bottom: 80px; }
-            .mobile-nav { display: flex; }
-            .section { padding: 25px 15px !important; }
-            nav { padding: 20px 15px !important; }
-            .grid { grid-template-columns: 1fr !important; gap: 15px; }
-            .course-card { padding: 25px !important; border-radius: 20px !important; }
-            .quiz-container { padding: 20px !important; border-radius: 20px !important; }
-        }
-
+        /* --- UI ELEMENTS --- */
         .section { display: none; padding: 40px; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .course-card { background: var(--card-bg); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); }
-        .quiz-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); border-radius: 30px; padding: 35px; border: 1px solid rgba(255,255,255,0.05); }
-        .option-btn { width: 100%; text-align: left; padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; margin-bottom: 12px; cursor: pointer; color: white; font-size: 1rem; }
+        .course-card { background: var(--card-bg); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .course-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        
+        .lesson-card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 18px; margin-bottom: 15px; border-left: 4px solid var(--primary); }
+        .profile-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 40px; border-radius: 30px; margin-bottom: 30px; text-align: center; }
+
+        .log-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .log-table th, .log-table td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        @media (max-width: 992px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; width: 100%; padding-bottom: 80px; }
+            .mobile-nav { display: flex; }
+            .section { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
 <div id="authOverlay">
     <div class="auth-card" id="loginBox">
-        <h2 style="background: linear-gradient(45deg, #fff, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ZAMON</h2>
+        <h2 style="color: var(--primary);">KIRISH</h2>
         <input type="text" id="logUser" class="input-box" placeholder="Login">
         <input type="password" id="logPass" class="input-box" placeholder="Parol">
         <button class="auth-btn" onclick="login()">Kirish</button>
-        <p onclick="toggleAuth(false)" style="margin-top: 15px; cursor:pointer; color: #94a3b8; font-size: 0.8rem;">Ro'yxatdan o'tish</p>
+        <p onclick="toggleAuth(false)" style="margin-top: 15px; cursor:pointer; color: #94a3b8;">Ro'yxatdan o'tish</p>
     </div>
-
     <div class="auth-card" id="regBox" style="display: none;">
-        <h2>Registratsiya</h2>
+        <h2>REGISTRATSIYA</h2>
         <input type="text" id="regUser" class="input-box" placeholder="Ism">
         <input type="password" id="regPass" class="input-box" placeholder="Parol">
         <button class="auth-btn" onclick="register()">Yaratish</button>
-        <p onclick="toggleAuth(true)" style="margin-top: 15px; cursor:pointer; color: #94a3b8; font-size: 0.8rem;">Kirishga qaytish</p>
+        <p onclick="toggleAuth(true)" style="margin-top: 15px; cursor:pointer; color: #94a3b8;">Kirishga qaytish</p>
     </div>
 </div>
 
@@ -85,53 +76,91 @@
     <div class="sidebar">
         <h2 style="color: var(--primary); margin-bottom: 30px;">ZAMON AC</h2>
         <div class="menu-item active" onclick="showSection('home', this)">📚 Kurslar</div>
+        <div class="menu-item" onclick="showSection('profile', this)">👤 Profilim</div>
         <div class="menu-item" onclick="showSection('myResults', this)">📈 Natijalarim</div>
+        <div id="adminLink" class="menu-item" style="display:none; color: #fbbf24;" onclick="showSection('adminPanel', this)">🛡 Monitoring</div>
         <div class="menu-item" onclick="location.reload()" style="margin-top: 50px; color: var(--accent);">🚪 Chiqish</div>
     </div>
 
     <div class="mobile-nav">
         <div class="nav-tab active" onclick="showSection('home', this)"><span>📚</span> Kurslar</div>
-        <div class="nav-tab" onclick="showSection('myResults', this)"><span>📈</span> Natijalar</div>
+        <div class="nav-tab" onclick="showSection('profile', this)"><span>👤</span> Profil</div>
+        <div id="mobAdmin" class="nav-tab" style="display:none" onclick="showSection('adminPanel', this)"><span>🛡</span> Monitor</div>
         <div class="nav-tab" onclick="location.reload()"><span>🚪</span> Chiqish</div>
     </div>
 
     <div class="main-content">
-        <nav style="padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;">
-            <h4 id="userNameDisplay">...</h4>
-            <div style="font-size: 12px; opacity: 0.5;">v2.0 Mobile Ready</div>
-        </nav>
-
         <div id="home" class="section active">
-            <h2 style="margin-bottom: 25px;">Fanlar ro'yxati</h2>
+            <h2 style="margin-bottom: 25px;">Barcha fanlar</h2>
             <div class="grid" id="courseGrid"></div>
         </div>
 
-        <div id="myResults" class="section">
-            <h2>Natijalarim</h2>
-            <div id="resList" style="margin-top: 20px;"></div>
+        <div id="lessonView" class="section">
+            <button onclick="showSection('home')" style="background:none; border:none; color:var(--primary); cursor:pointer; margin-bottom:20px;">← Orqaga</button>
+            <h2 id="currentFanTitle">Fan nomi</h2>
+            <div id="lessonsList" style="margin-top: 25px;"></div>
         </div>
 
-        <div id="testArea" class="section">
-            <div class="quiz-container" id="quizContent"></div>
+        <div id="profile" class="section">
+            <div class="profile-header">
+                <h2 id="profName">...</h2>
+                <p id="profRole">O'quvchi</p>
+            </div>
+            <div class="course-card">
+                <h3>Sizning ma'lumotlaringiz</h3>
+                <p id="statTests" style="margin-top:10px;">Testlar: 0 ta</p>
+            </div>
+        </div>
+
+        <div id="adminPanel" class="section">
+            <h2>🛡 Kirishlar Monitoringi</h2>
+            <div class="course-card" style="margin-top:20px; overflow-x:auto;">
+                <table class="log-table">
+                    <thead><tr><th>Login</th><th>Vaqt</th><th>Holat</th></tr></thead>
+                    <tbody id="adminLogs"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Barcha JS funksiyalaringiz o'zgarmasdan qoldi
+    // FANLAR VA DARSLAR MA'LUMOTI
     const fanlar = [
-        { id: 'math', title: 'Matematika', desc: 'Mantiqiy fikrlash.', color: '#f59e0b' },
-        { id: 'it', title: 'Dasturlash', desc: 'Web yaratish.', color: '#0ea5e9' },
-        { id: 'physics', title: 'Fizika', desc: 'Tabiat qonunlari.', color: '#ef4444' },
-        { id: 'eng', title: 'Ingliz tili', desc: 'Xalqaro til.', color: '#8b5cf6' }
+        { 
+            id: 'math', title: 'Matematika', color: '#f59e0b',
+            lessons: [
+                { t: '1-Dars: Sonli ifodalar', v: 'https://youtube.com/embed/demo1' },
+                { t: '2-Dars: Tenglamalar yechish', v: 'https://youtube.com/embed/demo2' },
+                { t: 'Mavzu bo\'yicha TEST', isTest: true }
+            ]
+        },
+        { 
+            id: 'it', title: 'Frontend Dasturlash', color: '#0ea5e9',
+            lessons: [
+                { t: '1-Dars: HTML asoslari', v: 'https://youtube.com/embed/demo3' },
+                { t: '2-Dars: CSS Stil berish', v: 'https://youtube.com/embed/demo4' },
+                { t: 'HTML bo\'yicha TEST', isTest: true }
+            ]
+        },
+        { 
+            id: 'english', title: 'Ingliz tili (IELTS)', color: '#8b5cf6',
+            lessons: [
+                { t: '1-Lesson: Present Simple', v: 'https://youtube.com/embed/demo5' },
+                { t: '2-Lesson: Vocabulary Build', v: 'https://youtube.com/embed/demo6' },
+                { t: 'Grammar TEST', isTest: true }
+            ]
+        },
+        { 
+            id: 'physics', title: 'Fizika', color: '#ef4444',
+            lessons: [
+                { t: '1-Dars: Kinematika', v: 'https://youtube.com/embed/demo7' },
+                { t: '2-Dars: Dinamika qonunlari', v: 'https://youtube.com/embed/demo8' }
+            ]
+        }
     ];
 
-    const savollar = {
-        math: [{ q: "12 * 12?", a: ["122", "144", "164"], c: 1 }],
-        it: [{ q: "HTML nima?", a: ["Dasturlash", "Belgilash", "Brauzer"], c: 1 }]
-    };
-
-    let currentUser = "";
+    let currentUser = null;
 
     function toggleAuth(isLogin) {
         document.getElementById('loginBox').style.display = isLogin ? 'block' : 'none';
@@ -143,7 +172,7 @@
         const p = document.getElementById('regPass').value;
         if(!u || !p) return alert("To'ldiring!");
         let users = JSON.parse(localStorage.getItem('z_users') || '[]');
-        users.push({ u, p });
+        users.push({ u, p, role: 'student' });
         localStorage.setItem('z_users', JSON.stringify(users));
         alert("Tayyor!"); toggleAuth(true);
     }
@@ -152,74 +181,75 @@
         const u = document.getElementById('logUser').value;
         const p = document.getElementById('logPass').value;
         let users = JSON.parse(localStorage.getItem('z_users') || '[]');
-        if(u==='admin' && p==='777' || users.find(x=>x.u===u && x.p===p)) startApp(u);
-        else alert("Xato!");
+        let user = (u==='admin' && p==='777') ? {u:'Admin', role:'admin'} : users.find(x=>x.u===u && x.p===p);
+        
+        if(user) {
+            saveLog(u, "Muvaffaqiyatli");
+            startApp(user);
+        } else {
+            saveLog(u || "Noma'lum", "Xato");
+            alert("Xato!");
+        }
     }
 
-    function startApp(name) {
-        currentUser = name;
+    function saveLog(u, s) {
+        let logs = JSON.parse(localStorage.getItem('z_logs') || '[]');
+        logs.unshift({ u, s, t: new Date().toLocaleString() });
+        localStorage.setItem('z_logs', JSON.stringify(logs.slice(0, 30)));
+    }
+
+    function startApp(user) {
+        currentUser = user;
         document.getElementById('authOverlay').style.display = 'none';
         document.getElementById('app').style.display = 'block';
-        document.getElementById('userNameDisplay').innerText = name;
+        document.getElementById('profName').innerText = user.u;
+        if(user.role === 'admin') {
+            document.getElementById('adminLink').style.display = 'flex';
+            document.getElementById('mobAdmin').style.display = 'flex';
+        }
         renderCourses();
     }
 
     function renderCourses() {
         const grid = document.getElementById('courseGrid');
         grid.innerHTML = fanlar.map(f => `
-            <div class="course-card">
-                <div style="width: 40px; height: 4px; background: ${f.color}; border-radius: 10px; margin-bottom: 15px;"></div>
+            <div class="course-card" onclick="openFan('${f.id}')">
+                <div style="width: 50px; height: 5px; background: ${f.color}; border-radius: 10px; margin-bottom: 20px;"></div>
                 <h3>${f.title}</h3>
-                <p style="margin: 10px 0;">${f.desc}</p>
-                <button onclick="startQuiz('${f.id}')" style="width:100%; padding:12px; border-radius:12px; border:none; background:rgba(255,255,255,0.08); color:white; cursor:pointer;">Kirish</button>
+                <p style="margin-top:10px; opacity:0.6; font-size:13px;">${f.lessons.length} ta dars mavjud</p>
+                <button style="margin-top:20px; background:none; border:1px solid var(--primary); color:white; padding:8px 15px; border-radius:10px; width:100%;">Darslarni ko'rish</button>
             </div>
         `).join('');
     }
 
-    function startQuiz(id) {
-        const test = savollar[id] || savollar['math'];
-        showSection('testArea');
-        const box = document.getElementById('quizContent');
-        box.innerHTML = `<h3>${id.toUpperCase()} Testi</h3><br>`;
-        test.forEach((item, idx) => {
-            const qDiv = document.createElement('div');
-            qDiv.innerHTML = `<p style="margin-bottom:15px;">${item.q}</p>`;
-            item.a.forEach((opt, oIdx) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt;
-                btn.onclick = () => { alert("Belgilandi!"); finishQuiz(id, 1, 1); };
-                qDiv.appendChild(btn);
-            });
-            box.appendChild(qDiv);
-        });
-    }
-
-    function finishQuiz(id, s, t) {
-        let res = JSON.parse(localStorage.getItem('z_results') || '[]');
-        res.push({ u: currentUser, f: id, b: `${s}/${t}`, d: new Date().toLocaleDateString() });
-        localStorage.setItem('z_results', JSON.stringify(res));
-        showSection('home');
+    function openFan(id) {
+        const fan = fanlar.find(x => x.id === id);
+        showSection('lessonView');
+        document.getElementById('currentFanTitle').innerText = fan.title;
+        const list = document.getElementById('lessonsList');
+        list.innerHTML = fan.lessons.map(l => `
+            <div class="lesson-card">
+                <h4>${l.t}</h4>
+                ${l.isTest ? 
+                    `<button onclick="alert('Test tez kunda!')" style="margin-top:10px; padding:8px 20px; border-radius:10px; border:none; background:var(--accent); color:white;">Testni boshlash</button>` : 
+                    `<p style="font-size:12px; margin-top:5px; color:var(--primary); cursor:pointer;">▶ Videoni ko'rish</p>`
+                }
+            </div>
+        `).join('');
     }
 
     function showSection(id, el) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        
-        // Active tab style for both sidebar and mobile nav
         document.querySelectorAll('.menu-item, .nav-tab').forEach(m => m.classList.remove('active'));
         if(el) el.classList.add('active');
-        
-        if(id === 'myResults') renderResults();
-        window.scrollTo(0,0);
+        if(id === 'adminPanel') renderLogs();
     }
 
-    function renderResults() {
-        const data = JSON.parse(localStorage.getItem('z_results') || '[]');
-        document.getElementById('resList').innerHTML = data.filter(x=>x.u===currentUser).map(r => `
-            <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:15px; margin-bottom:10px; display:flex; justify-content:space-between;">
-                <span>${r.f}</span><b>${r.b}</b>
-            </div>
+    function renderLogs() {
+        const logs = JSON.parse(localStorage.getItem('z_logs') || '[]');
+        document.getElementById('adminLogs').innerHTML = logs.map(l => `
+            <tr><td>${l.u}</td><td>${l.t}</td><td style="color:${l.s==='Xato'?'red':'#6366f1'}">${l.s}</td></tr>
         `).join('');
     }
 </script>
